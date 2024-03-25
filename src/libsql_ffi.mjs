@@ -1,7 +1,8 @@
-import { Ok, Error } from "./gleam.mjs";
+import { Ok, Error, List } from "./gleam.mjs";
+import { Some, None } from "../gleam_stdlib/gleam/option.mjs";
 import { createClient } from "@libsql/client";
 
-export function do_create_client(config) {
+export async function do_create_client(config) {
 	try {
 		return new Ok(createClient({
 			tls: config.tls,
@@ -20,9 +21,23 @@ export async function do_execute(query, args, client) {
 			sql: query,
 			args: args.toArray(),
 		});
-		return new Ok(result);
+		console.log(query)
+		return new Ok(
+			[
+				result.rowsAffected,
+				result.lastInsertRowid ? new Some(result.lastInsertRowid) : new None(),
+				List.fromArray(result.rows.map(Object.values)),
+			]
+		);
 	} catch (error) {
-		console.error(error)
-		return new Error(error);
+		return new Error("aaaaaa");
 	}
+}
+
+export function identity(x) {
+	return x;
+}
+
+export function _null() {
+	return null;
 }
