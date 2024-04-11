@@ -3,7 +3,7 @@ target = "javascript"
 description = "An unofficial Gleam port of turso's libSQL library"
 licenses = ["MIT"]
 version = "0.0.1"
-repository = { type = "github", user = "brunoti", repo = "libsql" }
+repository = { type = "github", user = "brunoti", repo = "gleam_libsql" }
 links = [
   { title = "About the creator", href = "https://bop.systems" },
 ]
